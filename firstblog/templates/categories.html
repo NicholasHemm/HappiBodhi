@@ -1,0 +1,28 @@
+{% load static %}
+
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if category_posts %}
+
+<h1>{{ cats }}</h1>
+
+<ul>
+{% for post in category_posts %}
+
+    <li><a href="{% url 'article' post.pk%}"> {{ post.title }}</a>
+    - {{ post.author.first_name }} {{ post.author.last_name }}<br/>
+    {{ post.body }}</li>
+
+{% endfor %}
+</ul>
+
+{% else %}
+
+Sorry, this category does not exist...yet
+
+{% endif %}
+
+
+{% endblock %}

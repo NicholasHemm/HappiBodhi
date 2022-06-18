@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    People
+{% endblock %}
+
+{% block content %}
+
+			<!-- Main -->
+				<div id="main" class="wrapper style2">
+					<div class="title">People</div>
+					<div class="container">
+
+						<!-- Content -->
+							<div id="content">
+								<article class="box post">
+									<header class="style1">
+										<h2>About the community</h2>
+										<p>Who are we and what is the mission</p>
+									</header>
+									<a href="#" class="image featured">
+										<img src="{% static 'HappiBodhi/website/images/CO_Mountains.jpg' %}" alt="" />
+									</a>
+									<p>When you think about the world...what do you see? Do you see a collection of static,
+									immovable, unchangeble objects? Or do you see something that is built by people, but only by and for those
+									that are willing to or have the capability to create. The latter is what we would like to see
+									in our people as it is important to understand the malle0ability of this world in order to be able
+									to change it.</p>
+									<p>Phasellus nisl nisl, varius id porttitor sed, pellentesque ac orci. Pellentesque
+									habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Morbi
+									bibendum justo sed mauris vehicula malesuada aliquam elit imperdiet. Aliquam eu nibh
+									lorem, eget gravida mi. Duis odio diam, luctus et vulputate vitae, vehicula ac dolor.
+									Pellentesque at urna eget tellus lobortis ultrices sed non erat. Donec eget erat non
+									magna volutpat malesuada quis eget eros. Nullam sodales cursus sapien, id consequat
+									leo suscipit ut. Praesent id turpis vitae turpis pretium ultricies. Vestibulum sit
+									amet risus elit.</p>
+									<p>Donec consectetur vestibulum dolor et pulvinar. Etiam vel felis enim, at viverra
+									ligula. Ut porttitor sagittis lorem, quis eleifend nisi ornare vel. Praesent nec orci
+									eget quam rutrum bibendum. Proin pellentesque diam non ligula commodo tempor. Vivamus
+									eget urna nibh. Curabitur non fringilla nisl. Donec accumsan interdum nisi, quis
+									tincidunt felis sagittis eget. Donec elementum ligula dignissim sem pulvinar non semper
+									odio eleifend. Duis commodo fringilla commodo. Aliquam erat volutpat. Vestibulum
+									facilisis leo magna. Cras sit amet urna eros, id egestas urna. Quisque aliquam
+									tempus euismod. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices
+									posuere cubilia.</p>
+									<p>Phasellus nisl nisl, varius id porttitor sed, pellentesque ac orci. Pellentesque
+									habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Morbi
+									bibendum justo sed mauris vehicula malesuada aliquam elit imperdiet. Aliquam eu nibh
+									lorem, eget gravida mi. Duis odio diam, luctus et vulputate vitae, vehicula ac dolor.
+									Pellentesque at urna eget tellus lobortis ultrices sed non erat. Donec eget erat non
+									magna volutpat malesuada quis eget eros. Nullam sodales cursus sapien, id consequat
+									leo suscipit ut. Praesent id turpis vitae turpis pretium ultricies. Vestibulum sit
+									amet risus elit.</p>
+								</article>
+							</div>
+
+					</div>
+				</div>
+
+			<!-- Highlights -->
+				<section id="highlights" class="wrapper style3">
+					<div class="title">The People</div>
+					<div class="container">
+						<div class="row aln-center">
+
+							{% for people in object_list %}
+							<div class="col-4 col-12-medium">
+								<section class="highlight">
+									<a href="{% url 'people' %}" class="image featured"><img src="{% static 'HappiBodhi/website/images/CO_Mountains.jpg' %}" alt="" /></a>
+									<h3><a href="#">{{ people.user }}</a></h3>
+									<p>{{ people.bio }}</p>
+									<ul class="actions">
+										<li><a href="{% url 'people' %}" class="button style1">Connect</a></li>
+									</ul>
+								</section>
+							</div>
+							{% endfor %}
+
+						</div>
+					</div>
+				</section>
+
+{% endblock %}

@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    {{ post.title_tag }}
+{% endblock %}
+
+{% block content %}
+
+    <h1> {{ post.title}}</h1>
+    <small>&nbsp;&nbsp;&nbsp;&nbsp;By: {{ post.author.first_name }} {{ post.author.last_name }} </small>
+    <br/>
+    <small>&nbsp;&nbsp;&nbsp;&nbsp;Written: {{ post.post_date }}</small>
+    <hr>
+
+    {% if post.header_image %}
+        <br/><br/>
+            <img src="{{ post.header_image.url }}">
+    {% endif %}
+
+    <br/>
+    {{ post.body | safe }}
+
+    <br/><br/>
+    {% if user.is_authenticated %}
+        {% if liked %}
+            <form action="{% url 'like_post' post.pk %}" method = "POST">
+                {% csrf_token %}
+                <button type = "submit", name="post_id", value = "{{ post.id }}", class = "btn btn-primary btn-sm">Unlike</button> - {{ total_likes }} Likes
+            </form>
+
+        {% else %}
+            <form action="{% url 'like_post' post.pk %}" method = "POST">
+                {% csrf_token %}
+                <button type = "submit", name="post_id", value = "{{ post.id }}", class = "btn btn-outline-primary btn-sm">Like</button> - {{ total_likes }} Likes
+            </form>
+
+        {% endif %}
+    {% else %}
+    {{ total_likes }} Likes
+
+    {% endif %}
+
+    <br/><br/>
+    <h3>Comments</h3>
+    <br/>
+
+    {% if not post.comments.all %}
+        <br/>&nbsp;&nbsp;&nbsp;&nbsp;No comments yet...
+
+     <br/>
+    <form action="" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+    <button type="submit">Add Comment</button>
+
+        {% else %}
+
+        {% for comment in post.comments.all %}
+            <strong>
+                &nbsp;&nbsp;&nbsp;&nbsp;{{ comment.name }} - {{ comment.date_added }}
+            </strong>
+            <br/>&nbsp;&nbsp;&nbsp;&nbsp;{{ comment.body }}
+        {% endfor %}
+
+         <br/><br/>
+        <form action="" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+       <button type="submit">Add Comment</button>
+            <br/><br/>
+
+    {% endif %}
+
+    <br/><br/>
+    <div class="card mb-3">
+      <div class="row g-0">
+        <div class="col-md-2">
+
+            {% if post.author.profile.profile_pic %}
+                <a href="{% url 'profile_page' post.author.profile.id %}" ><img src="{{ post.author.profile.profile_pic.url }}" class="img-fluid rounded-circle" height = 150 width = 150></a>
+            {% else %}
+                <a href="{% url 'profile_page' post.author.profile.id %}" ><img src="{% static 'HappiBodhi/images/default_pic.jpg' %}" class="img-fluid rounded-circle" height = 150 width = 150></a>
+            {% endif %}
+
+        </div>
+        <div class="col-md-10">
+          <div class="card-body">
+            <h5 class="card-title">{{ post.author.first_name }} {{ post.author.last_name }}</h5>
+            <p class="card-text">{{ post.author.profile.bio }}</p>
+
+              {% if post.author.profile.linkedin_url %}
+              <p class="card-text"><small class="text-muted"><a href="{{ post.author.profile.linkedin_url }}">LinkedIn</a></small></p>
+              {% endif %}
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <br/>
+    <a href="{%url 'home'%}" class="btn btn-secondary">Back</a>
+
+    {% if user.is_authenticated and post.author.id == user.id %}
+        <a href="{% url 'edit_post' post.pk%}" class="btn btn-secondary">Edit</a>
+        <a href="{% url 'delete_post' post.pk%}" class="btn btn-secondary">Delete</a>
+    {% endif %}
+
+
+
+{% endblock %}

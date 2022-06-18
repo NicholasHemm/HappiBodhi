@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<h1>User Profile</h1>
+
+</br>
+
+    <div class="card mb-3">
+      <div class="row g-0">
+        <div class="col-md-2">
+
+            {% if page_user.profile_pic %}
+                <img src="{{ page_user.profile_pic.url }}" class="card-image" height = 150 width = 150>
+            {% else %}
+                <img src="{% static 'HappiBodhi/images/default_pic.jpg' %}" class="card-image" height = 150 width = 150>
+            {% endif %}
+
+        </div>
+        <div class="col-md-10">
+          <div class="card-body">
+            <h5 class="card-title">{{ page_user.user.first_name }} {{ post.author.last_name }}</h5>
+            <p class="card-text">{{ page_user.user.bio }}</p>
+
+              {% if page_user.linkedin_url %}
+              <p class="card-text"><small class="text-muted"><a href="{{ page_user.linkedin_url }}">LinkedIn</a></small></p>
+              {% endif %}
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+{% endblock %}

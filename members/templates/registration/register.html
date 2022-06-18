@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    User Registration
+{% endblock %}
+
+{% block content %}
+
+<h1> User Registration </h1>
+<br/><br/>
+
+<div class="form-group">
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <button class="btn btn-secondary">Register</button>
+
+<hr>
+</div>
+
+{% endblock %}
